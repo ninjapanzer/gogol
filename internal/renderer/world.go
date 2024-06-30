@@ -1,9 +1,11 @@
 package renderer
 
-import "github.com/ninjapanzer/gogol/internal/game"
+import (
+	"github.com/ninjapanzer/gogol/internal/game"
+)
 
 type World struct {
-	matrix  game.WorldState
+	matrix  game.World
 	display Renderer
 }
 
@@ -11,14 +13,21 @@ type WorldRenderer interface {
 	Refresh()
 }
 
-func NewWorld(world *game.WorldState, display *Renderer) *World {
-	w := &World{}
-	w.matrix = *world
-	w.display = *display
-	return w
+func NewWorld(world game.World, display Renderer) WorldRenderer {
+	return &World{
+		matrix:  world,
+		display: display,
+	}
 }
 
-// loops through the matrix and draws the cells that are alive as 0 and dead as nothing
+//func NewWorld(world game.World, display *Renderer) *World {
+//	w := &World{}
+//	w.matrix = world
+//	w.display = *display
+//	return w
+//}
+
+// Refresh loops through the matrix and draws the cells that are alive as 0 and dead as nothing
 func (w *World) Refresh() {
 	for y, row := range w.matrix.Cells() {
 		for x, cell := range row {

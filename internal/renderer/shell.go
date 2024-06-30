@@ -56,11 +56,6 @@ func (s *Renderer) End() {
 	goncurses.End()
 }
 
-func end() {
-	//TODO implement me
-	panic("implement me")
-}
-
 func (s *Renderer) Dimensions() (int, int) {
 	return s.screen.MaxYX()
 }
